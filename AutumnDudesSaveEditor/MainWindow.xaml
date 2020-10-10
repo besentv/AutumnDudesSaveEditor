@@ -1,0 +1,111 @@
+﻿<Window x:Class="AutumnDudesSaveEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutumnDudesSaveEditor"
+        xmlns:system="clr-namespace:System;assembly=System"
+        mc:Ignorable="d"
+        Title="AutumnDudesSaveEditor" Height="502" Width="1434">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="dumpSaveDataButton" Content="Dump Save Data From Registry" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click" Height="50"/>
+        <Button x:Name="loadSaveDataButton" Content="Load Save Data" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="200" Height="45" Click="loadSaveDataButton_Click"/>
+        <Button x:Name="writeDataToFilesButton" Content="Write Data To Files" HorizontalAlignment="Left" Margin="10,0,0,60" Width="200" Height="45" VerticalAlignment="Bottom" Click="writeDataToFilesButton_Click"/>
+        <Button x:Name="pushFilesToRegistryButton" Content="Push Files To Registry" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="200" Height="45" Click="pushFilesToRegistryButton_Click"/>
+        <TreeView KeyDown="ButtonTreeView_KeyDown" Grid.Column="1" x:Name="buttonMapsTreeView" ItemsSource="{Binding Path=_SettingsTreeViewRoot, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,5,10" >
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <EventSetter Event="MouseDoubleClick"
+                Handler="HandleActionElementMapItemDoubleClick"/>
+                    <EventSetter Event="MouseRightButtonUp"
+                Handler="HandleSaveFileButtonItemRightClick"/>
+                    <EventSetter Event="MouseLeftButtonUp" Handler="ButtonTreeView_MouseLeftButtonUp"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:TreeViewRoot}" ItemsSource="{Binding SaveFiles}" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="ButtonMaps"></TextBlock>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:SaveFile}" ItemsSource="{Binding ButtonMaps}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:ActionElementMap}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock >
+                            <Run Text="->"/>
+                            <Run Text="ActionCategoryId: " /><Run Text="{Binding ActionCategoryId}" />
+                            <Run Text=" | ActionId: " /><Run Text="{Binding ActionId}" />
+                            <Run Text=" | ActionId: 0d" /><Run Text="{Binding ActionId, StringFormat=D  }" />
+                            <Run Text=" | ElementType: " /><Run Text="{Binding ElementType}" />
+                            <Run Text=" | ElementIdentifierId: " /><Run Text="{Binding ElementIdentifierId}" />
+                            <Run Text=" | ElementIdentifierId: 0d" /><Run Text="{Binding ElementIdentifierId, StringFormat=D}" />
+                            <Run Text=" | AxisRange: " /><Run Text="{Binding AxisRange}" />
+                            <Run Text=" | Invert: " /><Run Text="{Binding Invert}" />
+                            <Run Text=" | AxisContribution: " /><Run Text="{Binding AxisContribution}" />
+                            <Run Text=" | KeyboardKeyCode: " /><Run Text="{Binding KeyboardKeyCode }" />
+                            <Run Text=" | ModifierKey1: " /><Run Text="{Binding ModifierKey1}" />
+                            <Run Text=" | ModifierKey2: " /><Run Text="{Binding ModifierKey2}" />
+                            <Run Text=" | ModifierKey3: " /><Run Text="{Binding ModifierKey3}" />
+                            <Run Text=" | Enabled: " /><Run Text="{Binding Enabled}" />
+                        </TextBlock>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+        <GridSplitter Grid.Column="2" Width="5" HorizontalAlignment="Stretch" />
+        <TreeView KeyDown="AxisTreeView_KeyDown" Grid.Column="3"  x:Name="axisMapsTreeView" ItemsSource="{Binding Path=_SettingsTreeViewRoot, UpdateSourceTrigger=PropertyChanged}" Margin="5,10,10,10">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:TreeViewRoot}" ItemsSource="{Binding SaveFiles}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="AxisMaps"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:SaveFile}" ItemsSource="{Binding AxisMaps}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type local:ActionElementMap}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock >
+                            <Run Text="-&gt;"/>
+                            <Run Text="ActionCategoryId: " /><Run Text="{Binding ActionCategoryId}" />
+                            <Run Text=" | ActionId: " /><Run Text="{Binding ActionId}" />
+                            <Run Text=" | ActionId: 0d" /><Run Text="{Binding ActionId, StringFormat=D}" />
+                            <Run Text=" | ElementType: " /><Run Text="{Binding ElementType}" />
+                            <Run Text=" | ElementIdentifierId: " /><Run Text="{Binding ElementIdentifierId}" />
+                            <Run Text=" | ElementIdentifierId: 0d" /><Run Text="{Binding ElementIdentifierId, StringFormat=D}" />
+                            <Run Text=" | AxisRange: " /><Run Text="{Binding AxisRange}" />
+                            <Run Text=" | Invert: " /><Run Text="{Binding Invert}" />
+                            <Run Text=" | AxisContribution: " /><Run Text="{Binding AxisContribution}" />
+                            <Run Text=" | KeyboardKeyCode: " /><Run Text="{Binding KeyboardKeyCode}" />
+                            <Run Text=" | ModifierKey1: " /><Run Text="{Binding ModifierKey1}" />
+                            <Run Text=" | ModifierKey2: " /><Run Text="{Binding ModifierKey2}" />
+                            <Run Text=" | ModifierKey3: " /><Run Text="{Binding ModifierKey3}" />
+                            <Run Text=" | Enabled: " /><Run Text="{Binding Enabled}" />
+                        </TextBlock>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <EventSetter Event="Control.MouseDoubleClick"
+                        Handler="HandleActionElementMapItemDoubleClick"/>
+                    <EventSetter Event="UIElement.MouseRightButtonUp"
+                        Handler="HandleSaveFileAxisItemRightClick"/>
+                    <EventSetter Event="MouseLeftButtonUp" Handler="AxisTreeView_MouseLeftButtonUp"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+    </Grid>
+</Window>

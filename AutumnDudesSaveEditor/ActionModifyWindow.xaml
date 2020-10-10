@@ -1,0 +1,58 @@
+﻿<Window x:Class="AutumnDudesSaveEditor.ActionModifyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:AutumnDudesSaveEditor"
+        mc:Ignorable="d"
+        Title="ActionModifyWindow" Height="462" Width="424"
+        >
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataActionIdEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ActionId"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="dataKeyboardKeyCodeEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:KeyboardKeyCode"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="dataElementIdentifierIdEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ElementIdentifierId"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Label Content="ActionCategoryID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        
+        <Label Content="ActionId" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="ElementType" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="ElementIdentifierId" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="AxisRange" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="Invert" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="AxisContribution" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="KeyboardKeyCode" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="ModifierKey1" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="ModifierKey2" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="ModifierKey3" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <Label Content="Enabled" HorizontalAlignment="Left" Margin="10,395,0,0" VerticalAlignment="Top" Height="30" Width="160"/>
+        <ComboBox HorizontalAlignment="Left" Margin="175,45,0,0" VerticalAlignment="Top" Width="220" Height="30" ItemsSource="{Binding Source={StaticResource dataActionIdEnum}}"
+                  SelectedItem="{Binding Path=ActionElementMap.ActionId ,Mode=TwoWay}" />
+        <TextBox Text="{Binding ActionElementMap.ActionCategoryId, Mode=TwoWay}"  HorizontalAlignment="Left" Height="30" Margin="175,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Text="{Binding ActionElementMap.ElementType, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="175,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Text="{Binding ActionElementMap.AxisRange, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="175,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Text="{Binding ActionElementMap.AxisContribution, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="175,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <ComboBox HorizontalAlignment="Left" Margin="175,255,0,0" VerticalAlignment="Top" Width="220" Height="30" ItemsSource="{Binding Source={StaticResource dataKeyboardKeyCodeEnum}}"
+                  SelectedItem="{Binding Path=ActionElementMap.KeyboardKeyCode ,Mode=TwoWay}"/>
+        <TextBox Text="{Binding ActionElementMap.ModifierKey1, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="175,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Text="{Binding ActionElementMap.ModifierKey2, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="175,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Text="{Binding ActionElementMap.ModifierKey3, Mode=TwoWay}" HorizontalAlignment="Left" Height="30" Margin="175,360,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <CheckBox IsChecked="{Binding Path=ActionElementMap.Invert, Mode=TwoWay}" Content="" HorizontalAlignment="Left" Margin="175,185,0,0" VerticalAlignment="Top" Height="30" Width="220"/>
+        <CheckBox IsChecked="{Binding Path=ActionElementMap.Enabled, Mode=TwoWay}" Content="" HorizontalAlignment="Left" Margin="175,395,0,0" VerticalAlignment="Top" Height="30" Width="220"/>
+        <ComboBox HorizontalAlignment="Left" Margin="175,115,0,0" VerticalAlignment="Top" Width="220" Height="30" ItemsSource="{Binding Source={StaticResource dataElementIdentifierIdEnum}}"
+            SelectedItem="{Binding ActionElementMap.ElementIdentifierId, Mode=TwoWay}" />
+    </Grid>
+</Window>
