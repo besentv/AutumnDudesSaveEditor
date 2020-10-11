@@ -26,9 +26,10 @@ namespace RegistryBinaryEditor
 
             using (RegistryKey keyToWrite = Registry.CurrentUser.OpenSubKey(keyName, RegistryKeyPermissionCheck.ReadWriteSubTree))
             {
-
+      
                 foreach (XElement xElement in mappings.Elements("mapping"))
                 {
+                    Console.WriteLine($"Writing contents of file '{xElement.Value}' to key '{keyName}' and value '{xElement.Attribute("regValueName").Value}'.");
                     string fileContent = File.ReadAllText($"{fileDirPath}/{xElement.Value}");
                     byte[] bytes = new UTF8Encoding().GetBytes(fileContent);
                     //Add null byte for registry
@@ -70,6 +71,7 @@ namespace RegistryBinaryEditor
 
                 foreach (var valueName in keyToDump.GetValueNames())
                 {
+                    Console.WriteLine($"Dumping value '{valueName}' from key '{keyName}' to {fileDirPath}.");
 
                     object value = keyToDump.GetValue(valueName);
 

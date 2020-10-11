@@ -317,6 +317,8 @@ namespace AutumnDudesSaveEditor
 
 	public enum ElementIdentifierId
     {
+		MouseMovementH = 0,
+		MouseMovementV = 1,
 		MWheel = 2,
 		LMB = 3, //Left mouse
 		RMB = 4, //Right mouse
@@ -332,8 +334,8 @@ namespace AutumnDudesSaveEditor
         Jump = 2,
         Dive = 3,
         Grab = 4,
-		SpectateRotateCameraLeft = 5,
-		SpectateRotateCameraUp = 6,
+		RotateCameraLeft = 5,
+		RotateCameraUp = 6,
 		Last = 24,
 		Next = 25,
         PlayEmote1 = 26,
@@ -342,7 +344,9 @@ namespace AutumnDudesSaveEditor
         PlayEmote4 = 29,
 		//CancelSearch = 34,
 		ResetCamera = 40,
-        Escape = 57,
+        EscapeMenu = 57,
+		LeaveResultScreen = 54,
 		ShowPlayerNames = 69,
+		GamemodeSelection = 71,
     }
 }
